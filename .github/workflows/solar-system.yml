@@ -91,3 +91,22 @@ jobs:
             name: Coverage-Test-Result
             path: coverage
             retention-days: 5
+    dev-deploy:
+      needs: docker
+      runs-on: ubuntu-latest
+      steps:
+        - name: checkout Repo
+          uses: actions/checkout@v4
+
+        - name: Install Kubectl CLI
+          uses: actions/setup-kubectl@v3
+          with:
+            version: 'v1.26.0'
+
+        - name: Run kubectl commands
+          run: |
+            kubectl version --short
+            echo ------------------------------
+            kubectl get nodes
+
+    
