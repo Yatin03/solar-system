@@ -92,7 +92,7 @@ jobs:
             path: coverage
             retention-days: 5
     dev-deploy:
-      needs: docker
+      needs: [code-coverage, unit-testing]
       runs-on: ubuntu-latest
       steps:
         - name: checkout Repo
