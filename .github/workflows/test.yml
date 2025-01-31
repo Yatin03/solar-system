@@ -1,0 +1,41 @@
+name: Solar System Workflow
+
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - 'feature/*'
+
+env:
+  MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
+  MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
+  MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+
+jobs:
+    test-job:
+        name: Save output
+        runs-on: ['ubuntu-latest']
+        outputs:
+          TEST: ${{ steps.save-output.outputs.TEST_GIT_ENV }}
+        steps:
+        - name: Test github env
+          id: save-output
+          run: |
+            echo "TEST_GIT_ENV='Testing'" > $GITHUB_OUTPUT
+            echo "TEST_GIT_ENV1='Testing'" > $GITHUB_ENV
+    dev-deploy:
+      needs: [test-job]
+      runs-on: ubuntu-latest
+      env:
+        TEST_GIT_ENV: ${{ needs.test-job.outputs.TEST }}
+      steps:
+
+        - name: Run kubectl commands
+          run: |
+            echo "TEST_GIT_ENV=$TEST_GIT_ENV"
+            echo "TEST_GIT_ENV1=$TEST_GIT_ENV1"
+            echo ------------------------------
+            
+
+    
