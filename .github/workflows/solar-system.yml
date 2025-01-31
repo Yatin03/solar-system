@@ -91,6 +91,9 @@ jobs:
             name: Coverage-Test-Result
             path: coverage
             retention-days: 5
+        
+        - name: Test github env
+          run: echo "TEST_GIT_ENV='Testing'" > $GITHUB_ENV
     dev-deploy:
       needs: [code-coverage, unit-testing]
       runs-on: ubuntu-latest
@@ -99,12 +102,14 @@ jobs:
           uses: actions/checkout@v4
 
         - name: Install Kubectl CLI
-          uses: actions/setup-kubectl@v3
+          uses: azure/setup-kubectl@v3
           with:
             version: 'v1.26.0'
 
         - name: Run kubectl commands
           run: |
+            echo $TEST_GIT_ENV
+            echo ------------------------------
             kubectl version --short
             echo ------------------------------
             kubectl get nodes
