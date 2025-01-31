@@ -108,7 +108,7 @@ jobs:
 
         - name: Run kubectl commands
           run: |
-            echo $TEST_GIT_ENV
+            echo "TEST_GIT_ENV=$TEST_GIT_ENV"
             echo ------------------------------
             kubectl version --short
             echo ------------------------------
