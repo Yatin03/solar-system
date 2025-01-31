@@ -33,7 +33,7 @@ jobs:
 
         - name: Run kubectl commands
           run: |
-            echo "TEST_GIT_ENV=$TEST"
+            echo "TEST_GIT_ENV=$TEST_GIT_ENV done"
             echo "TEST_GIT_ENV1=$TEST_GIT_ENV1"
             echo ------------------------------
             
