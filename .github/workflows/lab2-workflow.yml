@@ -7,6 +7,11 @@ on:
         type: boolean
         required: true
         description: Run Specific Job
+      custom_message:
+        type: string
+        required: true
+        description: Enter a custom message
+      
 
 
 jobs:
@@ -14,3 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Exploring Workflow Dispatch Trigger"
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Printing Custom Message
+        run: echo "${{ inputs.custom_message }}"
+
